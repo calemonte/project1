@@ -1,0 +1,115 @@
+/*
+=====================
+General styles
+=====================
+*/
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+    background: #4568DC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Nunito', sans-serif;
+}
+
+h1 {
+    font-family: 'League Script', cursive;
+    font-size: 64px;
+}
+
+.nav-item {
+    cursor: pointer;
+}
+
+/*
+=====================
+Modal styles
+=====================
+*/
+
+.modal-content {
+    background: rgba(241, 241, 241, 1);
+}
+
+.modal-content button {
+    border: none;
+}
+
+#get-started-submit {
+    color: #4568DC;
+}
+
+/* #nav-signup-tab,
+#nav-login-tab {
+    color: #4568DC;
+    background: none;
+} */
+
+/* #nav-signup-tab:active,
+#nav-signup-tab:focus,
+#nav-login-tab:active,
+#nav-login-tab:focus {
+    background: #4568DC;
+    color: white;
+} */
+
+#get-started-submit:hover {
+    color: white;
+    background: #4568DC;  /* fallback for old browsers */
+}
+
+/*
+=====================
+Landing page styles
+=====================
+*/
+
+.fa-film, 
+.fa-utensils,
+.fa-dizzy {
+    font-size: 84px;
+}
+
+/*
+=====================
+User flow styles
+=====================
+*/
+
+#user-flow-background {
+    width: 70%;
+    height: 100%;
+    background: rgba(241, 241, 241, 0.3);
+}
+
+/*
+=====================
+Footer styles
+=====================
+*/
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+}
+
+/*
+=====================
+Media queries
+=====================
+*/
+
+@media screen and (max-width: 480px) {
+    
+    .footer {
+        font-size: 12px;
+    }
+
+}

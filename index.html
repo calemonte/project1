@@ -87,70 +87,114 @@
         </div> -->
 
         <!-- How many people select form -->
-        <div class="row mt-3">
-            <div class="col-sm-12">
-                <h4 class="text-white">How many people are you?</h4>
-                    <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
-                        <option value="1" selected>Just Me</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">Four</option>
-                        <option value="5">Five or more</option>
-                    </select>
+        <section id="recipe-flow">
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <h4 class="text-white">How many people are you?</h4>
+                        <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
+                            <option value="1" selected>Just Me</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five or more</option>
+                        </select>
+                </div>
             </div>
-        </div>
 
-        <!-- Protein select form -->
-        <div class="row mt-3">
-            <div class="col-sm-12">
-                <h4 class="text-white">What should be the recipe's primary protein?</h4>
-                    <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
-                        <option value="" selected>None</option>
-                        <option value="chicken">Chicken</option>
-                        <option value="beef">Beef</option>
-                        <option value="pork">Pork</option>
-                        <option value="tofu">Tofu</option>
-                        <option value="seitan">Seitan</option>
-                        <option value="tempeh">Tempeh</option>
-                        <option value="shrimp">Shrimp</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                        <option value="">...</option>
-                    </select>
+            <!-- What is your preferred diet form -->
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <h4 class="text-white">What is your preferred diet?</h4>
+                        <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
+                            <option value="no preference" selected>No preference (I'll eat anything)</option> <!-- Displays all proteins-->
+                            <option value="vegetarian">Vegetarian</option> <!-- Displays subset of proteins (see comments below) -->
+                            <option value="vegan">Vegan</option> <!-- Displays subset of proteins (see comments below) -->
+                            <option value="gluten-free">Gluten-free</option> <!-- Displays subset of proteins (see excluded items below). Add "gluten" to the exclusion list. -->
+                        </select>
+                </div>
             </div>
-        </div>
 
-        <!-- Veggie checklist -->
-        <div class="row mt-3">
-            <div class="col-sm-12 p-3 w-50">
-                <h4 class="text-white">What vegetables should the recipe include?</h4>
-                     <p>Pick no more than three</p>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="spinach">Spinach</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="arugula">Arugula</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="peppers">Peppers</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
-                        <label class="checkbox-inline p-1"><input type="checkbox" value="">lorem</label>
+            <!-- Protein select form -->
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <h4 class="text-white">Pick your protein</h4>
+                        <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
+                            <option value="" selected>None</option> 
+                            <option value="chicken">Chicken</option> 
+                            <option value="beef">Beef</option>
+                            <option value="pork">Pork</option>
+                            <option value="turkey">Turkey</option>
+                            <option value="tofu">Tofu</option> <!-- Vegeterian--> <!-- Vegan-->
+                            <option value="seitan">Seitan</option> <!-- Vegeterian--> <!-- Vegan--> <!-- EXCLUDE: Gluten-free --> 
+                            <option value="tempeh">Tempeh</option> <!-- Vegeterian--> <!-- Vegan-->
+                            <option value="eggs">Eggs</option> <!-- Vegeterian-->
+                            <option value="quinoa">Quinoa</option> <!-- Vegeterian --> <!-- Vegan-->
+                            <option value="lentils">Lentils</option> <!-- Vegeterian --> <!-- Vegan-->
+                            <option value="chickpeas">Chickpeas</option> <!-- Vegeterian--> <!-- Vegan-->
+                            <option value="shrimp">Shrimp</option>
+                            <option value="salmon">Salmon</option>
+                            <option value="tilapia">Tilapia</option>
+                            <option value="tuna">Tuna</option>
+                            <option value="catfish">Catfish</option>
+                        </select>
+                </div>
             </div>
-        </div>
 
-    </section>
+            <!-- Veggie option multiselect form -->
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <h4 class="text-white">Choose your veggies</h4>
+                        <p>Choose no more than three</p>
+                            <select class="selectpicker" multiple data-live-search="true">
+                                <option value="kale">Kale</option>
+                                <option value="corn">Corn</option>
+                                <option value="onion">Onion</option>
+                                <option value="bell pepper">Bell Pepper</option>
+                                <option value="avocado">Avocado</option>
+                                <option value="brussel sprouts">Brussel Sprouts</option>
+                                <option value="spinach">Spinach</option>
+                                <option value="arugula">Arugula</option>
+                                <option value="broccoli">Broccoli</option>
+                                <option value="tomato">Tomato</option>
+                                <option value="carrot">Carrot</option>
+                                <option value="peas">Peas</option>
+                                <option value="green beans">Green Beans</option>
+                                <option value="asparagus">Asparagus</option>
+                                <option value="potato">Potato</option>
+                                <option value="sweet potato">Sweet Potato</option>
+                                <option value="turnip">Turnip</option>
+                                <option value="zucchini">Zucchini</option>
+                                <option value="eggplant">Eggplant</option>
+                                <option value="cucumber">Cucumber</option>
+                                <option value="cauliflower">Cauliflower</option>
+                            </select>
+                </div>
+            </div>
+
+            <!-- Allergy multiselect form -->
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <h4 class="text-white">Do you have any food allergies?</h4>
+                            <select class="selectpicker" multiple data-live-search="true">
+                                <option value="peanuts">Peanuts</option>
+                                <option value="eggs">Eggs</option>
+                                <option value="tree nuts">Tree Nuts</option>
+                                <option value="dairy">Dairy</option>
+                                <option value="shell fish">Shell Fish</option>
+                            </select>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-outline-light btn-lg mt-3" id="recipe-submit">Submit</button>
+                </div>
+            </div> 
+
+        </section> <!-- End recipe input flow -->
+
+    </section> <!-- End main input flow body -->
 
     <!-- Initial design for landing page -->
     <!-- <section class="container">

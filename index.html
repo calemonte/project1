@@ -73,7 +73,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <!-- Customized greeting -->
-                <h2 class="display-5"><span id="greeting">Let's get cooking</span>, <span class="username-text">steve123</span>!</h2>
+                <h2 class="display-5"><span id="greeting">Now let's find you a good flick</span>, <span class="username-text">steve123</span>!</h2>
             </div>
         </div>
 
@@ -86,8 +86,9 @@
             </div>
         </div> -->
 
+        <!-- RECIPE USER FLOW START -->
         <!-- How many people select form -->
-        <section id="recipe-flow">
+        <!-- <section id="recipe-flow">
             <div class="row mt-3">
                 <div class="col-sm-12">
                     <h4 class="text-white">How many people are you?</h4>
@@ -99,23 +100,23 @@
                             <option value="5">Five or more</option>
                         </select>
                 </div>
-            </div>
+            </div> -->
 
             <!-- What is your preferred diet form -->
-            <div class="row mt-3">
+            <!-- <div class="row mt-3">
                 <div class="col-sm-12">
                     <h4 class="text-white">What is your preferred diet?</h4>
                         <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
-                            <option value="no preference" selected>No preference (I'll eat anything)</option> <!-- Displays all proteins-->
-                            <option value="vegetarian">Vegetarian</option> <!-- Displays subset of proteins (see comments below) -->
-                            <option value="vegan">Vegan</option> <!-- Displays subset of proteins (see comments below) -->
-                            <option value="gluten-free">Gluten-free</option> <!-- Displays subset of proteins (see excluded items below). Add "gluten" to the exclusion list. -->
+                            <option value="no preference" selected>No preference (I'll eat anything)</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option> 
+                            <option value="gluten-free">Gluten-free</option>
                         </select>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Protein select form -->
-            <div class="row mt-3">
+            <!-- <div class="row mt-3">
                 <div class="col-sm-12">
                     <h4 class="text-white">Pick your protein</h4>
                         <select class="custom-select bg-transparent border-light custom-select-lg mb-3 w-50">
@@ -124,13 +125,13 @@
                             <option value="beef">Beef</option>
                             <option value="pork">Pork</option>
                             <option value="turkey">Turkey</option>
-                            <option value="tofu">Tofu</option> <!-- Vegeterian--> <!-- Vegan-->
-                            <option value="seitan">Seitan</option> <!-- Vegeterian--> <!-- Vegan--> <!-- EXCLUDE: Gluten-free --> 
-                            <option value="tempeh">Tempeh</option> <!-- Vegeterian--> <!-- Vegan-->
-                            <option value="eggs">Eggs</option> <!-- Vegeterian-->
-                            <option value="quinoa">Quinoa</option> <!-- Vegeterian --> <!-- Vegan-->
-                            <option value="lentils">Lentils</option> <!-- Vegeterian --> <!-- Vegan-->
-                            <option value="chickpeas">Chickpeas</option> <!-- Vegeterian--> <!-- Vegan-->
+                            <option value="tofu">Tofu</option>
+                            <option value="seitan">Seitan</option>
+                            <option value="tempeh">Tempeh</option>
+                            <option value="eggs">Eggs</option>
+                            <option value="quinoa">Quinoa</option>
+                            <option value="lentils">Lentils</option>
+                            <option value="chickpeas">Chickpeas</option>
                             <option value="shrimp">Shrimp</option>
                             <option value="salmon">Salmon</option>
                             <option value="tilapia">Tilapia</option>
@@ -138,10 +139,10 @@
                             <option value="catfish">Catfish</option>
                         </select>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Veggie option multiselect form -->
-            <div class="row mt-3">
+            <!-- <div class="row mt-3">
                 <div class="col-sm-12">
                     <h4 class="text-white">Choose your veggies</h4>
                         <p>Choose no more than three</p>
@@ -169,10 +170,10 @@
                                 <option value="cauliflower">Cauliflower</option>
                             </select>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Allergy multiselect form -->
-            <div class="row mt-3">
+            <!-- <div class="row mt-3">
                 <div class="col-sm-12">
                     <h4 class="text-white">Do you have any food allergies?</h4>
                             <select class="selectpicker" multiple data-live-search="true">
@@ -183,16 +184,46 @@
                                 <option value="shell fish">Shell Fish</option>
                             </select>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Submit button -->
-            <div class="row mt-3">
+            <!-- <div class="row mt-3">
                 <div class="col-sm-12">
                     <button type="button" class="btn btn-outline-light btn-lg mt-3" id="recipe-submit">Submit</button>
                 </div>
             </div> 
 
-        </section> <!-- End recipe input flow -->
+        </section>  -->
+        <!-- End recipe input flow -->
+
+        <!-- MOVIE FLOW INPUT START -->
+        <section id="movie-flow">
+
+            <div class="row mt-3">
+                <div class="col-sm-12">
+                    <form class="w-75 ml-auto mr-auto">
+                        <div class="form-group mt-3">
+                            <h4 class="text-white">What's a movie you can always watch?</h4>
+                            <input id="movie-input1" class="form-control form-control-lg text-center" type="text" placeholder="Enter movie name" required />
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <h4 class="text-white">What's the last great movie you saw in theaters?</h4>
+                            <input id="movie-input2" class="form-control form-control-lg text-center" type="text" placeholder="Enter movie name" required />
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <h4 class="text-white">What's one of your favorite movies?</h4>
+                            <input id="movie-input3" class="form-control form-control-lg text-center" type="text" placeholder="Enter movie name" required />
+                        </div>
+
+                        <button id="movie-submit" type="submit" class="btn btn-outline-light btn-lg">Submit</button>
+                    </form>
+                </div>
+            </div>
+        
+        </section> 
+        <!-- End movie input flow -->
 
     </section> <!-- End main input flow body -->
 

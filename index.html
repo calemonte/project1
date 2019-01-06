@@ -17,6 +17,9 @@
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+
+  <!-- MomentJS -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   
   <title>Dinner and a Movie</title>
 </head>
@@ -28,8 +31,8 @@
             <li class="nav-item">
                 <a class="nav-link text-light" data-toggle="modal" data-target="#about">About</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="#" id="favorites-navitem">Favorites</a>
+            <li class="nav-item"> <!-- Not visible until logged in -->
+                <a class="nav-link text-light" id="favorites-navitem" data-toggle="modal" data-target="#favorites">Favorites</a>
             </li>
             <li class="nav-item" id="get-started-navitem">
                 <a class="nav-link text-light" data-toggle="modal" data-target="#get-started">Get Started</a>
@@ -349,6 +352,30 @@
             </div>
         </div>
     </div>
+    <!-- End Error modal -->
+
+    <!-- Favorites modal -->
+    <div class="modal fade bd-example-modal-lg" id="favorites" tabindex="-1" role="dialog" aria-labelledby="favorite-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Favorites</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="card-columns" id="favorites-row">
+                        
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Favorites modal -->
 
 <!-- JQuery, Bootstrap Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

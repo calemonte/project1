@@ -32,6 +32,16 @@ var currentPair = {
 
     },
 
+    // Method for setting the current movie based on the AJAX call.
+    setCurrentMovie: function(rTitle, rYear, rImg, rPlot) {
+
+        this.currentMovie.title = rTitle;
+        this.currentMovie.year = rYear;
+        this.currentMovie.imgSrc = rImg;
+        this.currentMovie.plot = rPlot;
+
+    },
+
     // Method for getting the current recipe object.
     getCurrentRecipe: function() {
         return this.currentRecipe;
@@ -56,7 +66,6 @@ function createRecipeURL() {
     var serving = parseInt($("#serving-select").children("option:selected").val()); // yield is under recipe.yield
     var dietPreference = "&health=" + $("#diet-select").children("option:selected").val();
     var protein = $("#protein-select").children("option:selected").val();
-    var from = "&from=" + Math.floor(Math.random() * 40); // Pull back a (sort of) random set of 10 recipes each time (pages 0-50).
     var veggies = [];
     var allergies = [];
 
@@ -71,7 +80,7 @@ function createRecipeURL() {
     });
 
     // Construct URL based on selections.
-    var URL = baseURL + protein + "&q=" + veggies.join("&q=") + "&app_id=" + appID + "&app_key=" + apiKey + from;
+    var URL = baseURL + protein + "," + veggies.join(",") + "&app_id=" + appID + "&app_key=" + apiKey;
 
     // Add diet preferences to URL if selected.
     if ($("#diet-select").children("option:selected").val()) {

@@ -28,21 +28,31 @@ $(document).on("click", "#recipe-submit", function(e) {
     }).then(function (response) {
 
         console.log(response);
+        console.log("Recipe count: " + response.count);
 
-        // Select random recipe from response hits.
-        var currentRecipe = response.hits[Math.floor(Math.random() * response.hits.length)];
+        // Set the current recipe if the API returns recipes.
+        if (response.count > 0) {
 
-        // Set current recipe in currentPair object (we'll push it to firebase later if the user saves the pair).
-        currentPair.setCurrentRecipe(
-            currentRecipe.recipe.label,
-            currentRecipe.recipe.source,
-            currentRecipe.recipe.image,
-            currentRecipe.recipe.url,
-            currentRecipe.recipe.ingredientLines
-        );
+            // Select random recipe from response hits.
+            var currentRecipe = response.hits[Math.floor(Math.random() * response.hits.length)];
 
-        // After recipe has been selected, load the movie form.
-        $("#user-flow-background").load("movie-load.html", renderUsername);
+            // Set current recipe in currentPair object (we'll push it to firebase later if the user saves the pair).
+            currentPair.setCurrentRecipe(
+                currentRecipe.recipe.label,
+                currentRecipe.recipe.source,
+                currentRecipe.recipe.image,
+                currentRecipe.recipe.url,
+                currentRecipe.recipe.ingredientLines
+            );
+
+            // After recipe has been selected, load the movie form.
+            $("#user-flow-background").load("movie-load.html", renderUsername);
+
+        // If there aren't any responses, tell the user.
+        } else {
+            $("#error-text").text("There were no recipes that matched your criteria. Try again!");
+            $("#error").modal("show");
+        }
 
     });
 
@@ -73,6 +83,29 @@ $(document).on("click", "#movie-submit", function(e) {
 // If the user logs out, refresh the page to bring them back to the beginning.
 $(document).on("click", "#logout-navitem", function(e) {
     location.reload();
+});
+
+// If the user clicks the favorite button, push that pair to Firebase and associate with their ID.
+$(document).on("click", ".fa-heart", function(e) {
+
+    var recipe = currentPair.getCurrentRecipe();
+    // var movie = currentPair.getCurrentMovie();
+    var today = moment().format("MMMM Do, YYYY");
+
+    database.ref(firebase.auth().currentUser.uid).push({
+        recipeTitle: recipe.title,
+        recipeURL: recipe.url,
+        recipeSource: recipe.source,
+        movieTitle: "Pulp Fiction", // Replace with movie.title
+        movieYear: "1994", // Replace with movie.year
+        movieURL: "placeholder", // Replace with "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en"
+        date: today,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    // LATER: Add some sort of success modal or something that gives the user feedback that the pair has been added.
+    // LATER: Add validation so that user can't click the favorites button twice.
+
 });
 
 // Restart the app when the user clicks "start over".

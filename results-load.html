@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-sm-12">
+        <!-- Customized greeting -->
+        <h2 class="display-5"><span id="greeting">Enjoy the dinner and movie</span>, <span class="username-text"></span>!</h2>
+    </div>
+</div>
+
+<!-- RESULTS VIEW START -->
+<section id="results-view">
+    <div class="container">
+        <div class="row">
+            <!-- Recipe card -->
+            <div class="col-sm">
+                <div class="card mt-3 shadow-sm border-0" style="width: 18rem;" id="recipe-result">
+                    <img src="" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- Recipe title -->
+                        <h5 class="card-title" id="recipe-title"></h5>
+                        <!-- Recipe source -->
+                        <p class="card-text" id="recipe-source"></p>
+                        <!-- Link to recipe -->
+                        <a href="" target="_blank" class="btn btn-outline-dark" id="view-recipe-button">Recipe</a>
+                        <!-- Dropdown containing list of ingredients -->
+                        <a class="btn btn-outline-dark mt-3 mb-3" data-toggle="collapse" href="#ingredients" role="button" aria-expanded="false" aria-controls="ingredients">Ingredients</a>
+
+                        <!-- Dropdown content -->
+                        <div class="collapse" id="ingredients">
+                            <div class="card card-body border-0">
+                                <ul class="text-left" id="ingredient-list">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heart icon div -->
+            <div class="col-sm d-flex align-items-center justify-content-center">
+                <i class="fa fa-heart text-white hvr-pulse-grow"></i>
+            </div>
+
+            <!-- Movie card -->
+            <div class="col-sm">
+                <div class="card mt-3 shadow-sm border-0" style="width: 18rem;" id="movie-result">
+                    <img src="http://image.tmdb.org/t/p/w200/dM2w364MScsjFf8pfMbaWUcWrR.jpg" class="card-img-top" style="height: 288px;" alt="...">
+                    <div class="card-body">
+                        <!-- Movie title -->
+                        <h5 class="card-title" id="movie-title">Pulp Fiction</h5>
+                        <!-- Movie release year -->
+                        <p class="card-text" id="movie-year">1994</p>
+                        <!-- Link to rent or buy the movie on Google play -->
+                        <a href="https://play.google.com/store/search?q=pulp%20fiction&c=movies&hl=en" target="_blank" class="btn btn-outline-dark" id="view-movie-button">Rent/Buy Movie</a>
+                        <!-- Dropdown containing movie plot -->
+                        <a class="btn btn-outline-dark mt-3 mb-3" data-toggle="collapse" href="#movieplot" role="button" aria-expanded="false" aria-controls="movieplot">Plot</a>
+                    </div>
+
+                    <!-- Dropdown content -->
+                    <div class="collapse" id="movieplot">
+                        <div class="card card-body border-0">
+                            <p id="movieplot-text">A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restart button -->
+        <div class="row mt-3">
+            <div class="col-sm">
+                <button id="restart" type="submit" class="btn btn-outline-light btn-lg">Start Over</button>
+            </div>
+        </div>
+    </div>
+    
+</section>
+<!-- End results view -->

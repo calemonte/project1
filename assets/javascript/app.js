@@ -65,36 +65,33 @@ $(document).on("click", "#movie-submit", function (e) {
     var movieURL = createMovieURL();
 
     function createMovieURL() {
-            // API query constantants
-            
+        // API query constantants
 
-    // Call createMovieURL function and store in variable.
-   
-    var movieAPIKey = "e703c9574a99f4f42772b7422d217e2e";
-    // var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
-    var userMovies = [];
-    // Variables for storing 3 movies from user.
-    var movie1 = $("#movie-input1").val().trim();
-    var movie2 = $("#movie-input2").val().trim();
-    var movie3 = $("#movie-input3").val().trim();
-    // var selectedMovieID = 
-   
-    console.log(movieURL)
-    // AJAX call to movie database.
-    $.ajax({
-        url: movieURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response.results)
 
-        userMovies.push(movie1, movie2, movie3);
-        console.log(userMovies);
+        // Call createMovieURL function and store in variable.
 
-            var selectedMovie = Math.floor(Math.random() * (userMovies.length));
-            var randomMovie = selectedMovie;
+        var movieAPIKey = "e703c9574a99f4f42772b7422d217e2e";
+        
+        var userMovies = [];
+        // Variables for storing 3 movies from user.
+        var movie1 = $("#movie-input1").val().trim();
+        var movie2 = $("#movie-input2").val().trim();
+        var movie3 = $("#movie-input3").val().trim();
+        var selectedMovie;
+        var randomMovie = selectedMovie;
+        var selectedMovieID;
 
+            //push movie input to movie array
+            userMovies.push(movie1, movie2, movie3);
+            //get random movie from array
+            selectedMovie = Math.floor(Math.random() * (userMovies.length));
+            console.log(userMovies);
+
+             // AJAX call to movie database.
+
+        
             console.log(userMovies[selectedMovie]);
-            console.log(randomMovie)
+    
             var queryURL = "https://api.themoviedb.org/3/search/movie?api_key=" + movieAPIKey + "&language=en-US&query=" + userMovies[selectedMovie] + "&page=1&include_adult=false"
             console.log(queryURL);
 
@@ -102,13 +99,19 @@ $(document).on("click", "#movie-submit", function (e) {
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response.results[0].id)
-    
-        });
-           
-    });
-}
+                console.log(response.results[0].id);
+                selectedMovieID = response.results[0].id;
 
+                var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
+                $.ajax({
+                    url: queryIDURL,
+                    method: "GET"
+                }).then(function (response) {
+                    console.log(response.results[0].id);
+                    console.log(queryIDURL);
+            });
+        });
+    }
     // Pick the first recommended movie from the results.
 
     // Set current movie in currentPair object.

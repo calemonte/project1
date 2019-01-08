@@ -97,6 +97,10 @@ Results view styles
     font-size: 84px;
 }
 
+.fa-heart:hover {
+    cursor: pointer;
+}
+
 /* Pulse Grow */
 /* Animation courtesy Ian Lunn Design Limited: https://github.com/IanLunn/Hover */
 @-webkit-keyframes hvr-pulse-grow {
@@ -133,6 +137,10 @@ animation-iteration-count: infinite;
 -webkit-animation-direction: alternate;
 animation-direction: alternate;
 }
+
+/* #movieplot {
+   margin: 10px;
+} */
 
 /*
 =====================

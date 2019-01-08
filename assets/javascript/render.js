@@ -39,7 +39,7 @@ function renderResults() {
     $("#movie-title").text(movie.title);
     $("#movie-year").text(movie.year);
     $("#movie-result > img").attr("src", movie.imgSrc);
-    $("#movieplot").text(movie.plot);    
+    $("#movieplot-text").text(movie.plot);    
     $("#view-movie-button").attr("href", "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en");
 
 };
@@ -47,10 +47,17 @@ function renderResults() {
 // Function for allowing the user to generate another recipe and movie pair. 
 function restart() {
 
-    // If the user is logged in, show them the recipe form.
+    // If the user is logged in, show them the recipe form and implement multiselect.
     if (firebase.auth().currentUser) {
 
-        $("#user-flow-background").load("recipe-load.html", renderUsername);
+        $("#user-flow-background").load("recipe-load.html", function() {
+            renderUsername();
+            // Create multiselect for veggies and allergies.
+            $(document).ready(function() {
+                $("#veggie-select").multiselect();
+                $("#allergy-select").multiselect();
+            });
+        });
 
     // Otherse reload the app.
     } else {

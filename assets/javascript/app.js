@@ -12,7 +12,7 @@ firebase.initializeApp(config);
 const database = firebase.database();
 
 // On click event handler for gathering recipe AJAX query.
-$(document).on("click", "#recipe-submit", function(e) {
+$(document).on("click", "#recipe-submit", function (e) {
 
     e.preventDefault();
 
@@ -48,7 +48,7 @@ $(document).on("click", "#recipe-submit", function(e) {
             // After recipe has been selected, load the movie form.
             $("#user-flow-background").load("movie-load.html", renderUsername);
 
-        // If there aren't any responses, tell the user.
+            // If there aren't any responses, tell the user.
         } else {
             $("#error-text").text("There were no recipes that matched your criteria. Try again!");
             $("#error").modal("show");
@@ -59,46 +59,100 @@ $(document).on("click", "#recipe-submit", function(e) {
 });
 
 // On click event handler for gathering movie AJAX query.
-$(document).on("click", "#movie-submit", function(e) {
+$(document).on("click", "#movie-submit", function (e) {
 
     e.preventDefault();
 
-    // Call createMovieURL function and store in variable.
+    // API query constantants
+    var movieAPIKey = "e703c9574a99f4f42772b7422d217e2e";
+    var userMovies = [];
 
-    // AJAX call to movie database.
+    // Variables for storing 3 movies from user.
+    var movie1 = $("#movie-input1").val().trim();
+    var movie2 = $("#movie-input2").val().trim();
+    var movie3 = $("#movie-input3").val().trim();
+    var selectedMovie;
+    var selectedMovieID;
 
-    // Pick the first recommended movie from the results.
+    //push movie input to movie array
+    userMovies.push(movie1, movie2, movie3);
 
-    // Set current movie in currentPair object.
+    //get random movie from array
+    selectedMovie = Math.floor(Math.random() * (userMovies.length));
 
+    var queryURL = "https://api.themoviedb.org/3/search/movie?api_key=" + movieAPIKey + "&language=en-US&query=" + userMovies[selectedMovie] + "&page=1&include_adult=false";
 
-    // After movie has been selected, show user the results view.
-    $("#user-flow-background").load("results-load.html", function() {
-        renderResults();
-        renderUsername();
+    // AJAX call to movie database to get id of selectedMovie.
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+
+        // If first call is successful then make the second call
+        if (response.total_results > 0) {
+            
+            selectedMovieID = response.results[0].id;
+
+            var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
+
+            // Ajax call to get the recommended movie.
+            $.ajax({
+                url: queryIDURL,
+                method: "GET"
+            }).then(function (response) {
+                if (response.total_results > 0) {
+                    var randomResults = Math.floor(Math.random() * response.results.length);
+                    var finalMovieSelection = (response.results[randomResults]);
+                    var year = movieYear(finalMovieSelection.release_date);
+                    var imgUrl = "https://image.tmdb.org/t/p/w200" + finalMovieSelection.poster_path;
+
+                    currentPair.setCurrentMovie(
+                        finalMovieSelection.original_title,
+                        year,
+                        imgUrl,
+                        finalMovieSelection.overview,
+                    );
+                    console.log(currentPair.getCurrentMovie());
+
+                    // After movie has been selected, show user the results view.
+                    $("#user-flow-background").load("results-load.html", function () {
+                        renderResults();
+                        renderUsername();
+                    });
+
+                } else {
+                    $("#error-text").text("We couldn't find any recommendations based on the movies provided. Please try again.");
+                    $("#error").modal("show");
+                }
+            });
+        } else {
+            $("#error-text").text("We didn't find a match for " + userMovies[selectedMovie] + ". Please check your spelling or enter a new movie.");
+            $("#error").modal("show");
+        }
     });
+
 
 });
 
 // If the user logs out, refresh the page to bring them back to the beginning.
-$(document).on("click", "#logout-navitem", function(e) {
+$(document).on("click", "#logout-navitem", function (e) {
     location.reload();
 });
 
 // If the user clicks the favorite button, push that pair to Firebase and associate with their ID.
-$(document).on("click", ".fa-heart", function(e) {
+$(document).on("click", ".fa-heart", function (e) {
 
     var recipe = currentPair.getCurrentRecipe();
-    // var movie = currentPair.getCurrentMovie();
+    var movie = currentPair.getCurrentMovie();
     var today = moment().format("MMMM Do, YYYY");
 
     database.ref(firebase.auth().currentUser.uid).push({
         recipeTitle: recipe.title,
         recipeURL: recipe.url,
         recipeSource: recipe.source,
-        movieTitle: "Pulp Fiction", // Replace with movie.title
-        movieYear: "1994", // Replace with movie.year
-        movieURL: "placeholder", // Replace with "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en"
+        movieTitle: movie.title,
+        movieYear: movie.year,
+        movieURL: "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en",
         date: today,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });

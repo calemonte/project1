@@ -7,8 +7,8 @@ var currentPair = {
         source: "",
         imgSrc: "",
         url: "",
-        ingredients: [],
-    
+        ingredients: []
+
     },
 
     currentMovie: {
@@ -16,13 +16,12 @@ var currentPair = {
         title: "",
         year: "",
         imgSrc: "",
-        plot: "",
-        // googlePlayURL: "https://play.google.com/store/search?q=" + title + "&c=movies&hl=en"
-        
+        plot: ""
+
     },
 
     // Method for setting the current recipe based on the AJAX call.
-    setCurrentRecipe: function(rTitle, rSource, rImg, rURL, rIngredients) {
+    setCurrentRecipe: function (rTitle, rSource, rImg, rURL, rIngredients) {
 
         this.currentRecipe.title = rTitle;
         this.currentRecipe.source = rSource;
@@ -33,7 +32,7 @@ var currentPair = {
     },
 
     // Method for setting the current movie based on the AJAX call.
-    setCurrentMovie: function(rTitle, rYear, rImg, rPlot) {
+    setCurrentMovie: function (rTitle, rYear, rImg, rPlot) {
 
         this.currentMovie.title = rTitle;
         this.currentMovie.year = rYear;
@@ -43,12 +42,12 @@ var currentPair = {
     },
 
     // Method for getting the current recipe object.
-    getCurrentRecipe: function() {
+    getCurrentRecipe: function () {
         return this.currentRecipe;
     },
 
     // Method for getting the current movie object.
-    getCurrentMovie: function() {
+    getCurrentMovie: function () {
         return this.currentMovie;
     }
 
@@ -63,19 +62,19 @@ function createRecipeURL() {
     var apiKey = "40cbe055ca2da4f4745859559f6a06a0";
 
     // Variables for storing user selections.
-    var serving = parseInt($("#serving-select").children("option:selected").val()); // yield is under recipe.yield
+    var serving = parseInt($("#serving-select").children("option:selected").val());
     var dietPreference = "&health=" + $("#diet-select").children("option:selected").val();
     var protein = $("#protein-select").children("option:selected").val();
     var veggies = [];
     var allergies = [];
 
     // Gather veggie options and push into array.
-    $.each($("#veggie-select option:selected"), function() {            
+    $.each($("#veggie-select option:selected"), function () {
         veggies.push($(this).val());
     });
-    
+
     // Gather allergy options and push into array.
-    $.each($("#allergy-select option:selected"), function() {            
+    $.each($("#allergy-select option:selected"), function () {
         allergies.push($(this).val());
     });
 
@@ -96,14 +95,9 @@ function createRecipeURL() {
 
 };
 
-// Function that creates the movie URL. INCOMPLETE -- ED TO HANDLE.
-function createMovieURL() {
-
-    // API query constants.
-
-    // Variables for storing 3 movies from user.
-    var movie1 = $("#movie-input1").val().trim();
-    var movie2 = $("#movie-input2").val().trim();
-    var movie3 = $("#movie-input3").val().trim();
-    
+//function to return the movie release year
+function movieYear(releaseDate) {
+    var arr = releaseDate.split("-");
+    var year = arr[0];
+    return year;
 };

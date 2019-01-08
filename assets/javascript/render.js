@@ -19,9 +19,9 @@ function renderUsername() {
 // Function that renders the results page.
 function renderResults() {
 
-    //  Get the current recipe and the current movie.
+    //  Get the current recipe and the  current movie.
     var recipe = currentPair.getCurrentRecipe();
-    // var movie = currentPair.getCurrentMovie();
+    var movie = currentPair.getCurrentMovie();
 
     // Populate the recipe card elements with our current recipe. 
     $("#recipe-result > img").attr("src", recipe.imgSrc);
@@ -30,11 +30,17 @@ function renderResults() {
     $("#view-recipe-button").attr("href", recipe.url);
 
     // Iterate through recipe's ingredients and append to hidden dropdown div.
-    $.each(recipe.ingredients, function(i, ingredient) {
+    $.each(recipe.ingredients, function (i, ingredient) {
         var li = $("<li>" + ingredient + "</li>");
         $("#ingredient-list").append(li);
     });
 
+    // Populate the movie card with the recommended movie
+    $("#movie-title").text(movie.title);
+    $("#movie-year").text(movie.year);
+    $("#movie-result > img").attr("src", movie.imgSrc);
+    $("#movieplot").text(movie.plot);    
+    $("#view-movie-button").attr("href", "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en");
 
 };
 

@@ -62,66 +62,75 @@ $(document).on("click", "#recipe-submit", function (e) {
 $(document).on("click", "#movie-submit", function (e) {
 
     e.preventDefault();
-    var movieURL = createMovieURL();
 
-    function createMovieURL() {
-        // API query constantants
+    // API query constantants
+    var movieAPIKey = "e703c9574a99f4f42772b7422d217e2e";
+    var userMovies = [];
 
+    // Variables for storing 3 movies from user.
+    var movie1 = $("#movie-input1").val().trim();
+    var movie2 = $("#movie-input2").val().trim();
+    var movie3 = $("#movie-input3").val().trim();
+    var selectedMovie;
+    var selectedMovieID;
 
-        // Call createMovieURL function and store in variable.
+    //push movie input to movie array
+    userMovies.push(movie1, movie2, movie3);
 
-        var movieAPIKey = "e703c9574a99f4f42772b7422d217e2e";
-        
-        var userMovies = [];
-        // Variables for storing 3 movies from user.
-        var movie1 = $("#movie-input1").val().trim();
-        var movie2 = $("#movie-input2").val().trim();
-        var movie3 = $("#movie-input3").val().trim();
-        var selectedMovie;
-        var randomMovie = selectedMovie;
-        var selectedMovieID;
+    //get random movie from array
+    selectedMovie = Math.floor(Math.random() * (userMovies.length));
 
-            //push movie input to movie array
-            userMovies.push(movie1, movie2, movie3);
-            //get random movie from array
-            selectedMovie = Math.floor(Math.random() * (userMovies.length));
-            console.log(userMovies);
+    var queryURL = "https://api.themoviedb.org/3/search/movie?api_key=" + movieAPIKey + "&language=en-US&query=" + userMovies[selectedMovie] + "&page=1&include_adult=false";
 
-             // AJAX call to movie database.
+    // AJAX call to movie database to get id of selectedMovie.
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
 
-        
-            console.log(userMovies[selectedMovie]);
-    
-            var queryURL = "https://api.themoviedb.org/3/search/movie?api_key=" + movieAPIKey + "&language=en-US&query=" + userMovies[selectedMovie] + "&page=1&include_adult=false"
-            console.log(queryURL);
+        // If first call is successful then make the second call
+        if (response.total_results > 0) {
+            
+            selectedMovieID = response.results[0].id;
 
+            var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
+
+            // Ajax call to get the recommended movie.
             $.ajax({
-                url: queryURL,
+                url: queryIDURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response.results[0].id);
-                selectedMovieID = response.results[0].id;
+                if (response.total_results > 0) {
+                    var randomResults = Math.floor(Math.random() * response.results.length);
+                    var finalMovieSelection = (response.results[randomResults]);
+                    var year = movieYear(finalMovieSelection.release_date);
+                    var imgUrl = "https://image.tmdb.org/t/p/w200" + finalMovieSelection.poster_path;
 
-                var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
-                $.ajax({
-                    url: queryIDURL,
-                    method: "GET"
-                }).then(function (response) {
-                    console.log(response.results[0].id);
-                    console.log(queryIDURL);
+                    currentPair.setCurrentMovie(
+                        finalMovieSelection.original_title,
+                        year,
+                        imgUrl,
+                        finalMovieSelection.overview,
+                    );
+                    console.log(currentPair.getCurrentMovie());
+
+                    // After movie has been selected, show user the results view.
+                    $("#user-flow-background").load("results-load.html", function () {
+                        renderResults();
+                        renderUsername();
+                    });
+
+                } else {
+                    $("#error-text").text("We couldn't find any recommendations based on the movies provided. Please try again.");
+                    $("#error").modal("show");
+                }
             });
-        });
-    }
-    // Pick the first recommended movie from the results.
-
-    // Set current movie in currentPair object.
-
-
-    // After movie has been selected, show user the results view.
-    $("#user-flow-background").load("results-load.html", function () {
-        renderResults();
-        renderUsername();
+        } else {
+            $("#error-text").text("We didn't find a match for " + userMovies[selectedMovie] + ". Please check your spelling or enter a new movie.");
+            $("#error").modal("show");
+        }
     });
+
 
 });
 
@@ -134,16 +143,16 @@ $(document).on("click", "#logout-navitem", function (e) {
 $(document).on("click", ".fa-heart", function (e) {
 
     var recipe = currentPair.getCurrentRecipe();
-    // var movie = currentPair.getCurrentMovie();
+    var movie = currentPair.getCurrentMovie();
     var today = moment().format("MMMM Do, YYYY");
 
     database.ref(firebase.auth().currentUser.uid).push({
         recipeTitle: recipe.title,
         recipeURL: recipe.url,
         recipeSource: recipe.source,
-        movieTitle: "Pulp Fiction", // Replace with movie.title
-        movieYear: "1994", // Replace with movie.year
-        movieURL: "placeholder", // Replace with "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en"
+        movieTitle: movie.title,
+        movieYear: movie.year,
+        movieURL: "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en",
         date: today,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });

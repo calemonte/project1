@@ -102,17 +102,14 @@
         // If user is logged in, show the logout & favorites button, hide get started.
         if (firebaseUser) {
             var favoriteCount = 1; // Our counter for keeping tabs on the favorite header.
-            console.log(firebaseUser);
-            console.log("current user: " + firebaseUser.uid); // TO DO: Figure out how to pass the user ID to somewhere else in the program.
             btnLogout.show();
 
             // Display the correct favorites list for the user.
             database.ref(firebaseUser.uid).on("child_added", function(snapshot) {
 
                 // Match user id to snapshot value.
-                console.log("The user id is: " + snapshot.key);
-                var snapObj = snapshot.val();
-                console.log(snapObj);     
+                // console.log("The user id is: " + snapshot.key);
+                var snapObj = snapshot.val();    
                 
                 // Create a card with the favorited recipe and movie information.
                 var card = $("<div class='card m-2 shadow-sm'><div class='card-body'><h5 class='card-title'>Favorite #" + favoriteCount + "</h5><p class='card-text'><a href='" + snapObj.recipeURL + "' target='_blank'>" + snapObj.recipeTitle + "</a> (" + snapObj.recipeSource + ") </p><p class='card-text'><a href='https://play.google.com/store/search?q=" + snapObj.movieTitle + "&c=movies&hl=en' target='_blank'>" + snapObj.movieTitle + "</a> (" + snapObj.movieYear + ") </p><p class='card-text'><small class='text-muted'>Added on " + snapObj.date + "</small></p></div></div>");
@@ -136,7 +133,14 @@
             renderSectionContainer();
 
             // Load recipe view.
-            $("#user-flow-background").load("recipe-load.html", renderUsername);
+            $("#user-flow-background").load("recipe-load.html", function() {
+                renderUsername();
+                // Create multiselect for veggies and allergies.
+                $(document).ready(function() {
+                    $("#veggie-select").multiselect();
+                    $("#allergy-select").multiselect();
+                });
+            });
         
         // If user is not logged in, display Get Started buttons.
         } else {

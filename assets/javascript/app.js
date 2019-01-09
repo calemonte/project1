@@ -152,19 +152,28 @@ $(document).on("click", ".fa-heart", function (e) {
     var movie = currentPair.getCurrentMovie();
     var today = moment().format("MMMM Do, YYYY");
 
-    database.ref(firebase.auth().currentUser.uid).push({
-        recipeTitle: recipe.title,
-        recipeURL: recipe.url,
-        recipeSource: recipe.source,
-        movieTitle: movie.title,
-        movieYear: movie.year,
-        movieURL: "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en",
-        date: today,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
-    });
+    // Only add the pair once.
+    if (!$(".fa-heart").hasClass("added")) {
+
+        database.ref(firebase.auth().currentUser.uid).push({
+            recipeTitle: recipe.title,
+            recipeURL: recipe.url,
+            recipeSource: recipe.source,
+            movieTitle: movie.title,
+            movieYear: movie.year,
+            movieURL: "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en",
+            date: today,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+
+    } else {
+        $("#error-text").text("You've already favorited this pair!");
+        $("#error").modal("show");
+    }
+    
+    $(".fa-heart").addClass("added");
 
     // LATER: Add some sort of success modal or something that gives the user feedback that the pair has been added.
-    // LATER: Add validation so that user can't click the favorites button twice.
 
 });
 

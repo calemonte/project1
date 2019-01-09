@@ -83,54 +83,60 @@ $(document).on("click", "#movie-submit", function (e) {
     var queryURL = "https://api.themoviedb.org/3/search/movie?api_key=" + movieAPIKey + "&language=en-US&query=" + userMovies[selectedMovie] + "&page=1&include_adult=false";
 
     // AJAX call to movie database to get id of selectedMovie.
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
+    if (userMovies[selectedMovie] !== "") {
+    
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
 
-        // If first call is successful then make the second call
-        if (response.total_results > 0) {
-            
-            selectedMovieID = response.results[0].id;
+            // If first call is successful then make the second call
+            if (response.total_results > 0) {
+                
+                selectedMovieID = response.results[0].id;
 
-            var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
+                var queryIDURL = "https://api.themoviedb.org/3/movie/" + selectedMovieID + "/recommendations?api_key=" + movieAPIKey + "&language=en-US&include_adult=false&include_video=false";
 
-            // Ajax call to get the recommended movie.
-            $.ajax({
-                url: queryIDURL,
-                method: "GET"
-            }).then(function (response) {
-                if (response.total_results > 0) {
-                    var randomResults = Math.floor(Math.random() * response.results.length);
-                    var finalMovieSelection = (response.results[randomResults]);
-                    var year = movieYear(finalMovieSelection.release_date);
-                    var imgUrl = "https://image.tmdb.org/t/p/w200" + finalMovieSelection.poster_path;
+                // Ajax call to get the recommended movie.
+                $.ajax({
+                    url: queryIDURL,
+                    method: "GET"
+                }).then(function (response) {
+                    if (response.total_results > 0) {
+                        var randomResults = Math.floor(Math.random() * response.results.length);
+                        var finalMovieSelection = (response.results[randomResults]);
+                        var year = movieYear(finalMovieSelection.release_date);
+                        var imgUrl = "https://image.tmdb.org/t/p/w200" + finalMovieSelection.poster_path;
 
-                    currentPair.setCurrentMovie(
-                        finalMovieSelection.original_title,
-                        year,
-                        imgUrl,
-                        finalMovieSelection.overview,
-                    );
-                    console.log(currentPair.getCurrentMovie());
+                        currentPair.setCurrentMovie(
+                            finalMovieSelection.original_title,
+                            year,
+                            imgUrl,
+                            finalMovieSelection.overview,
+                        );
+                        console.log(currentPair.getCurrentMovie());
 
-                    // After movie has been selected, show user the results view.
-                    $("#user-flow-background").load("results-load.html", function () {
-                        renderResults();
-                        renderUsername();
-                    });
+                        // After movie has been selected, show user the results view.
+                        $("#user-flow-background").load("results-load.html", function () {
+                            renderResults();
+                            renderUsername();
+                        });
 
-                } else {
-                    $("#error-text").text("We couldn't find any recommendations based on the movies provided. Please try again.");
-                    $("#error").modal("show");
-                }
-            });
-        } else {
-            $("#error-text").text("We didn't find a match for " + userMovies[selectedMovie] + ". Please check your spelling or enter a new movie.");
-            $("#error").modal("show");
-        }
-    });
-
+                    } else {
+                        $("#error-text").text("We couldn't find any recommendations based on the movies provided. Please try again.");
+                        $("#error").modal("show");
+                    }
+                });
+            } else {
+                $("#error-text").text("We didn't find a match for " + userMovies[selectedMovie] + ". Please check your spelling or enter a new movie.");
+                $("#error").modal("show");
+            }
+        });
+    // Error handling for when user forgets to enter movies.
+    } else {
+        $("#error-text").text("Please enter three movies before pressing submit.");
+        $("#error").modal("show");
+    }
 
 });
 
@@ -146,19 +152,37 @@ $(document).on("click", ".fa-heart", function (e) {
     var movie = currentPair.getCurrentMovie();
     var today = moment().format("MMMM Do, YYYY");
 
-    database.ref(firebase.auth().currentUser.uid).push({
-        recipeTitle: recipe.title,
-        recipeURL: recipe.url,
-        recipeSource: recipe.source,
-        movieTitle: movie.title,
-        movieYear: movie.year,
-        movieURL: "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en",
-        date: today,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
-    });
+    // Only add the pair once.
+    if (!$(".fa-heart").hasClass("added")) {
 
-    // LATER: Add some sort of success modal or something that gives the user feedback that the pair has been added.
-    // LATER: Add validation so that user can't click the favorites button twice.
+        database.ref(firebase.auth().currentUser.uid).push({
+            recipeTitle: recipe.title,
+            recipeURL: recipe.url,
+            recipeSource: recipe.source,
+            movieTitle: movie.title,
+            movieYear: movie.year,
+            movieURL: "https://play.google.com/store/search?q=" + movie.title + "&c=movies&hl=en",
+            date: today,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+
+        // Display feedback for when a pair is favorited.
+        var favorited = $("<div id='favorited' class='text-white mb-1'>Favorited!</div>");
+        $("#favtext-target").prepend(favorited.hide());
+
+        var $favorited = $("#favorited");
+        $($favorited).fadeIn("medium");
+
+        setTimeout(function(){
+            $($favorited).fadeOut("slow");
+        }, 1000);
+
+    } else {
+        $("#error-text").text("You've already favorited this pair!");
+        $("#error").modal("show");
+    }
+    
+    $(".fa-heart").addClass("added");
 
 });
 

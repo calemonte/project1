@@ -166,14 +166,23 @@ $(document).on("click", ".fa-heart", function (e) {
             dateAdded: firebase.database.ServerValue.TIMESTAMP
         });
 
+        // Display feedback for when a pair is favorited.
+        var favorited = $("<div id='favorited' class='text-white mb-1'>Favorited!</div>");
+        $("#favtext-target").prepend(favorited.hide());
+
+        var $favorited = $("#favorited");
+        $($favorited).fadeIn("medium");
+
+        setTimeout(function(){
+            $($favorited).fadeOut("slow");
+        }, 1000);
+
     } else {
         $("#error-text").text("You've already favorited this pair!");
         $("#error").modal("show");
     }
     
     $(".fa-heart").addClass("added");
-
-    // LATER: Add some sort of success modal or something that gives the user feedback that the pair has been added.
 
 });
 

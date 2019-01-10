@@ -10,38 +10,38 @@ Just use whatever energy you have left from the work week to tell us what you ha
 
 # Instructions
 
-1. Get Started: Create an account to be stored in our database.
-2. Get a recipe.
-    a. Choose how many people you'll be eating with.
-    b. Choose your preferred diet.
-    c. Pick your protein.
-    d. Pick your vegetables. 
-    e. Let us know if you have any allergies.
-3. Let us find you a great movie to watch tonight.
-    a. What's a movie you can always watch?
-    b. What's the last great movie you saw in theaters?
-    c. What's one of your favorite movies?
+1. Get Started
+    1. Create an account or login to an existing account.
+2. Get a recipe based on a few key ingredients.
+    1. Choose how many people you'll be eating with.
+    1. Choose your preferred diet.
+    1. Pick your protein.
+    1. Pick your vegetables. 
+    1. Let us know if you have any allergies.
+3. Let us find you a great movie to watch tonight based on movies that you already like.
+    1. What's a movie you can always watch?
+    1. What's the last great movie you saw in theaters?
+    1. What's one of your favorite movies?
 4. Take a look at your dinner and the movie we think would be best for you tonight, and either get started on your       evening or start over if these options aren't perfect for you.
 
+# Techologies Implemented
 
-# Techology Implemented
+- JavaScript
+- JQuery
+- HTML
+- CSS
+- Bootstrap
+- Firebase 
+- Moment.js
+- Edamam API
+- Themoviedb API
+- Bootstrap Multiselect (JQuery multiselect library based on bootstrap)
 
-Bootstrap
-Firebase 
-Moment.js
-jquery
-JavaScript
-HTML
-CSS
-edamam API
-themoviedb API
-Bootstrap multi-select
+# Future Enhancements
 
-# Enhancements
-
-Display username instead of email.
-Add a function to remove favorites.
-Spin again — allow user to get another movie and recipe based current search criteria.
-Printing out more recipe info, as opposed to sending the user to the link.
-The ability to search on genre of movie, rating, etc.
-“Email this to me” fucntion, so you could pull it up on another device for better visability during cooking. 
+- Display username instead of email.
+- Add ability for user to remove items from their favorites.
+- Spin again - allow user to get another movie and recipe based current search criteria.
+- Printing out more recipe info, as opposed to sending the user to the link.
+- The ability to search on genre of movie, rating, etc.
+- “Email this to me” functionality, so you could pull it up on another device for better visability during cooking. 

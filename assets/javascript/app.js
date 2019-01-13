@@ -186,5 +186,14 @@ $(document).on("click", ".fa-heart", function (e) {
 
 });
 
+// Remove entry from Firebase and the DOM when the user clicks the delete button.
+$(document).on("click", ".delete", function (e) {
+
+    e.preventDefault;
+    database.ref(firebase.auth().currentUser.uid).child($(this).attr("data-key")).remove();
+    $(this).closest(".card").remove();
+
+});
+
 // Restart the app when the user clicks "start over".
 $(document).on("click", "#restart", restart);

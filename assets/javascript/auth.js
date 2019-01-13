@@ -108,11 +108,11 @@
             database.ref(firebaseUser.uid).on("child_added", function(snapshot) {
 
                 // Match user id to snapshot value.
-                // console.log("The user id is: " + snapshot.key);
-                var snapObj = snapshot.val();    
+                console.log("The user id is: " + firebaseUser.uid);
+                var snapObj = snapshot.val();
                 
                 // Create a card with the favorited recipe and movie information.
-                var card = $("<div class='card m-2 shadow-sm'><div class='card-body'><h5 class='card-title'>Favorite #" + favoriteCount + "</h5><p class='card-text'><a href='" + snapObj.recipeURL + "' target='_blank'>" + snapObj.recipeTitle + "</a> (" + snapObj.recipeSource + ") </p><p class='card-text'><a href='https://play.google.com/store/search?q=" + snapObj.movieTitle + "&c=movies&hl=en' target='_blank'>" + snapObj.movieTitle + "</a> (" + snapObj.movieYear + ") </p><p class='card-text'><small class='text-muted'>Added on " + snapObj.date + "</small></p></div></div>");
+                var card = $("<div class='card m-2 shadow-sm'><div class='card-body'><h5 class='card-title'>Favorite #" + favoriteCount + "</h5><p class='card-text'><a href='" + snapObj.recipeURL + "' target='_blank'>" + snapObj.recipeTitle + "</a> (" + snapObj.recipeSource + ") </p><p class='card-text'><a href='https://play.google.com/store/search?q=" + snapObj.movieTitle + "&c=movies&hl=en' target='_blank'>" + snapObj.movieTitle + "</a> (" + snapObj.movieYear + ") </p><p class='card-text'><small class='text-muted'>Added on " + snapObj.date + "</small></p></div><button type='button' class='btn btn-outline-danger rounded-0 mt-1 btn-block delete' data-key=" + snapshot.key + ">Delete</button></div>");
 
                 // Append that card to the favorites modal.
                 $("#favorites-row").append(card);

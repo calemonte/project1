@@ -24,7 +24,7 @@ Just use whatever energy you have left from the work week to tell us what you ha
     1. What's one of your favorite movies?
 4. Take a look at your dinner and the movie we think would be best for you tonight, and either get started on your       evening or start over if these options aren't perfect for you.
 
-# Techologies Implemented
+# Technologies Implemented
 
 - JavaScript
 - JQuery
@@ -34,14 +34,9 @@ Just use whatever energy you have left from the work week to tell us what you ha
 - Firebase 
 - Moment.js
 - Edamam API
-- Themoviedb API
+- The Movie Database (TMDb) API
 - Bootstrap Multiselect (JQuery multiselect library based on bootstrap)
 
 # Future Enhancements
 
-- Display username instead of email.
-- Add ability for user to remove items from their favorites.
-- Spin again - allow user to get another movie and recipe based current search criteria.
-- Printing out more recipe info, as opposed to sending the user to the link.
-- The ability to search on genre of movie, rating, etc.
-- “Email this to me” functionality, so you could pull it up on another device for better visability during cooking. 
+See Issues tab for more information about future improvements.

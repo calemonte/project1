@@ -19,16 +19,11 @@ $(document).on("click", "#recipe-submit", function (e) {
     // Store generated recipe URL in a variable.
     var recipeURL = createRecipeURL();
 
-    console.log(recipeURL);
-
     // Call the Edamam API.
     $.ajax({
         url: recipeURL,
         method: "GET"
     }).then(function (response) {
-
-        console.log(response);
-        console.log("Recipe count: " + response.count);
 
         // Set the current recipe if the API returns recipes.
         if (response.count > 0) {
@@ -114,7 +109,6 @@ $(document).on("click", "#movie-submit", function (e) {
                             imgUrl,
                             finalMovieSelection.overview,
                         );
-                        console.log(currentPair.getCurrentMovie());
 
                         // After movie has been selected, show user the results view.
                         $("#user-flow-background").load("results-load.html", function () {

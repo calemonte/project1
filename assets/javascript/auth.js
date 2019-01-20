@@ -108,7 +108,6 @@
             database.ref(firebaseUser.uid).on("child_added", function(snapshot) {
 
                 // Match user id to snapshot value.
-                console.log("The user id is: " + firebaseUser.uid);
                 var snapObj = snapshot.val();
                 
                 // Create a card with the favorited recipe and movie information.
@@ -141,7 +140,6 @@
         
         // If user is not logged in, display Get Started buttons.
         } else {
-            console.log("Not logged in");
             btnLogout.hide();
             $("#favorites-navitem").hide();
             $("#get-started-navitem").show();

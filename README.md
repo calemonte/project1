@@ -1,8 +1,6 @@
+![The Dinner and a Movie logo text.](./assets/images/dinnerandamovie.png  "The Dinner and a Movie logo text.")
+
 # Dinner and a Movie
-
-Created by Ed Beaudet, Jason Horowitz, Lily Simmons, and Kenny Whitebloom for Project #1 as part of the University of Pennsylvania Coding Bootcamp.
-
-# App Description
 
 It’s Friday afternoon at work and you’re dreaming about the weekend. When you get home you’re feeling that Friday night fatigue, you know you’re staying in, and don’t want to make anymore decisions. Well, that’s where we come in! Let us make the decision for you…
 
@@ -31,7 +29,7 @@ Just use whatever energy you have left from the work week to tell us what you ha
 - HTML
 - CSS
 - Bootstrap
-- Firebase 
+- Firebase (for user authentication and favorites storage)
 - Moment.js
 - Edamam API
 - The Movie Database (TMDb) API
@@ -40,3 +38,7 @@ Just use whatever energy you have left from the work week to tell us what you ha
 # Future Enhancements
 
 See Issues tab for more information about future improvements.
+
+# About
+
+Created by Ed Beaudet, Jason Horowitz, Lily Simmons, and Kenny Whitebloom for Project #1 as part of the University of Pennsylvania Coding Bootcamp.
